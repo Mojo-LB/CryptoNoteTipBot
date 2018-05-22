@@ -1,11 +1,11 @@
-# DeroTipBot
+# Dero TipBot
 
-## This Should work with Monero, and any fork that uses 12-decimals
+### This Should work with Monero, and any fork that uses 12-decimals
 
 If you like to adjust to other forks that don't use 12-decimals, please change decimal value in `node-mdules/xmr-nodejs` or create a new module for your prefered coin
 
 
---- Standard Requirements : 
+### Standard Requirements : 
 ----------------------------------------------------------------------------
 Mongodb version 3.6.4 (compatible), other version use is not recommended, but it can work
 ```sudo apt install mongodb```
@@ -23,14 +23,15 @@ export NVM_DIR="$HOME/.nvm"
 nvm install 8.11.2
 ```
 ----------------------------------------------------------------------------
---- Commands for plugin requirements (if plugins are not included)
+### Commands for plugin requirements (if plugins are not included)
 ----------------------------------------------------------------------------
-npm install discord.js
-npm install safe-json-stringify
-npm install monero-nodejs
-npm install big.js
+`npm install discord.js`
+`npm install safe-json-stringify`
+`npm install monero-nodejs`
+`npm install big.js`
 ----------------------------------------------------------------------------
---- Instructions for bot_config.js
+#### Instructions for bot_config.js
+```
 wallethostname - your wallet RPC server hostname, default is already included
 walletport - your wallet RPC server port, default is already included
 bot_token - get your token from https://discordapp.com/developers/applications/me (as of 22.05.2018). generate user for the bot, and click to reveal the Token
@@ -48,3 +49,4 @@ wait_time_for_withdraw_confirm - waiting time until user confirms his withdrawal
 log_1 - log initial output in the console (true, false)
 log_2 - log some actions in that are running in the bot eg. transactions (true, false)
 log_3 - log (debug). Logging everything possible, every function called, and arguments passed (true, false)
+```
