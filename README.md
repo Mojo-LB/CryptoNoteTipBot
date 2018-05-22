@@ -24,11 +24,16 @@ nvm install 8.11.2
 ```
 ----------------------------------------------------------------------------
 ### Commands for plugin requirements (if plugins are not included)
-----------------------------------------------------------------------------
-`npm install discord.js`
-`npm install safe-json-stringify`
-`npm install monero-nodejs`
-`npm install big.js`
+----------------------------------------------------------------------------  
+
+   `npm install discord.js`  
+
+   `npm install safe-json-stringify`  
+
+   `npm install monero-nodejs`  
+
+   `npm install big.js`  
+
 ----------------------------------------------------------------------------
 #### Instructions for bot_config.js
 ```
