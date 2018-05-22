@@ -2,7 +2,7 @@
 
 ## This Should work with Monero, and any fork that uses 12-decimals
 
-If you like to adjust to other forks that don't use 12-decimals, please change decimal value in 
+If you like to adjust to other forks that don't use 12-decimals, please change decimal value in `node-mdules/xmr-nodejs` or create a new module for your prefered coin
 
 
 --- Standard Requirements : 
