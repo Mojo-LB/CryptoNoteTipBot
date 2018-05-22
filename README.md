@@ -4,6 +4,8 @@
 
 If you like to adjust to other forks that don't use 12-decimals, please change decimal value in `node-mdules/xmr-nodejs` or create a new module for your prefered coin
 
+Or even better, adjust to have it a configurable option and create a PR :)
+
 
 ### Standard Requirements : 
 ----------------------------------------------------------------------------
