@@ -713,11 +713,20 @@ function formatDisplayBalance(balance){
 	
 }
 function getReadableFloatBalanceFromWalletFormat(paymentamount){	
+paymentamount = paymentamount.toString(); // crucial, if we're using paymentamount.length, if number passed, it would be undefined, which would result in wrong computation
 	var array = paymentamount.toString().split("");
 	
-	array.splice(paymentamount.length - coin_total_units, 0,".");
+	if(array.length < 12){
+			for(var i = 0; i <= 12-paymentamount.length; i++){ // how much zeroes to add, if balance in wallet format (eg. 800000) deposited < 12 characters
+					array.splice(0,0,"0");
+			}
+		
+	}	
 	
-	return Big((Big(array.join("")).times(10)).toFixed(coin_total_units));
+	
+	array.splice(array.length - coin_total_units, 0,".");
+	
+	return Big((Big(array.join(""))).toFixed(coin_total_units));
 	
 	
 }
