@@ -472,7 +472,7 @@ function addAdmin(authorId, targetId,callback){
   var adminObject = { userid: targetId };
   dbo.collection("admins").insertOne(adminObject, function(err, res) {
     if (err) {callback("Error happened");} else{ // failsafe, only do callback, when successful
-	callback("Admin with user id " + userid + " successfuly added!");
+	callback("Admin with user id " + targetId + " successfuly added!");
 	}
 	
    addGeneralEvent("addAdmin with user id " + targetId, authorId); // log the action
