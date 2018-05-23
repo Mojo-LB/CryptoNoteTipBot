@@ -94,7 +94,9 @@ function getWalletInfo(callback){
 	try{
 	Wallet.height().then(function(data){
 		Wallet.balance().then(function(balance) {
-				callback("Current wallet height is:" + data.height + " . Current wallet balance is: " + balance.balance + " . Current unlocked balance is: " + balance.unlocked_balance);
+		
+		
+				callback("Current wallet height is:" + data.height + " . Current wallet balance is: " + getReadableFloatBalanceFromWalletFormat(balance.balance).toFixed(coin_total_units) + " . Current unlocked balance is: " + getReadableFloatBalanceFromWalletFormat(balance.unlocked_balance).toFixed(coin_total_units));
 
 		});
 	
@@ -233,7 +235,7 @@ function checkCommand(msg){
 			if(tiptarget != null){
 			TipSomebody(msg,msg.author.id, tiptarget, user, myname, amount, function(success, message){
 				if(success == true){
-				msg.channel.send(user + " has been tipped " + formatDisplayBalance(amount) + " " + coin_name + " by " + msg.author);
+				msg.channel.send("<@" + tiptarget + "> has been tipped " + formatDisplayBalance(amount) + " " + coin_name + " by " + msg.author);
 				} else {msg.channel.send(message);}
 				
 			});
@@ -710,7 +712,7 @@ function formatDisplayBalance(balance){
 	return(Big(balance).toFixed(coin_display_units));
 	
 }
-function getReadableFloatBalanceFromPayment(paymentamount){	
+function getReadableFloatBalanceFromWalletFormat(paymentamount){	
 	var array = paymentamount.toString().split("");
 	
 	array.splice(paymentamount.length - coin_total_units, 0,".");
@@ -760,10 +762,10 @@ function UpdateBalanceForUser(g_userid,callback){
 			
 			
 			//////////////////
-			if(log3)console.log(getReadableFloatBalanceFromPayment(bulkdata.payments[i].amount).toString());
+			if(log3)console.log(getReadableFloatBalanceFromWalletFormat(bulkdata.payments[i].amount).toString());
 			if(log3)console.log(bulkdata.payments[i].amount);
 			if(log3)console.log(addbalance.toString());
-			addbalance = addbalance.plus(Big(Big(getReadableFloatBalanceFromPayment(bulkdata.payments[i].amount)).toFixed(coin_total_units)));
+			addbalance = addbalance.plus(Big(Big(getReadableFloatBalanceFromWalletFormat(bulkdata.payments[i].amount)).toFixed(coin_total_units)));
 		} else {
 			
 		}
