@@ -197,12 +197,12 @@ function checkCommand(msg){
 			case 'adminhelp':
 			isAdmin(msg.author.id, function(result){
 				if(result == true){
-				msg.author.send("Hello! Welcome to the ADMIN HELP SECTION. \n To show user info, type \"!tipdero showuserinfo userid\" \n To add an admin, type \"!tipdero addadmin userid\" (only available for owner) \n To remove an admin, type \"!tipdero removeadmin userid\" (only available for owner) \n To disable tipping for a user, type \"!tipdero switchtipsend userid allow/disallow\" \n To disable receive of tips for a user, type \"!tipdero switchtipreceive userid allow/disallow\" \n . To stop the bot from listening to commands, type \"!tipdero stoplistening\" \n . To start bot listening to commands, type \"!tipdero startlistening\" (only available to bot owner) \n To display wallet info, type \"!tipdero walletinfo\" (only available to bot owner)");
+				msg.author.send("Hello! Welcome to the ADMIN HELP SECTION. \n To show user info, type \"!tipdero showuserinfo userid\" \n To add an admin, type \"!tipdero addadmin userid\" (only available for owner) \n To remove an admin, type \"!tipdero removeadmin userid\" (only available for owner) \n To disable tipping for a user, type \"!tipdero switchtipsend userid allow/disallow\" \n To disable receive of tips for a user, type \"!tipdero switchtipreceive userid allow/disallow\" \n To stop the bot from listening to commands, type \"!tipdero stoplistening\" \n To start bot listening to commands, type \"!tipdero startlistening\" (only available to bot owner) \n To display wallet info, type \"!tipdero walletinfo\" (only available to bot owner)");
 				}
 			});
 			break;
 			case 'help':
-			msg.author.send("Hello! Welcome to the Dero Tip bot help section. \n For getting your balance, type \"!tipdero mybalance\" \n For deposit details, type \"!tipdero deposit\" \n For withdraw, type \"!tipdero withdraw <walletaddress> <amount>\" (withdrawal fee is " + withdraw_tx_fees +  " " + coin_name + ".), minimum withdraw amount is " + withdraw_min_amount + " " + coin_name + ". \n For tip somebody, type \"!tipdero tip <user_mention> <amount>\" \n We are not responsible for any system abuse, please don't deposit/leave big amounts ");
+			msg.author.send("Hello! Welcome to Dero TipBot help section. \n To get your balance, type \"!tipdero mybalance\" \n For deposits, type \"!tipdero deposit\" \n For withdrawals, type \"!tipdero withdraw <walletaddress> <amount>\" (withdrawal fee is " + withdraw_tx_fees +  " " + coin_name + ".), minimum withdrawal amount is " + withdraw_min_amount + " " + coin_name + ". \n To tip someone, type \"!tipdero tip <user_mention> <amount>\" \n We are not responsible for any system abuse, please don't deposit/leave big amounts ");
 			break;
 			case 'mybalance':
 				getBalance(msg.author.id, msg, function(data){
@@ -235,12 +235,12 @@ function checkCommand(msg){
 			if(tiptarget != null){
 			TipSomebody(msg,msg.author.id, tiptarget, user, myname, amount, function(success, message){
 				if(success == true){
-				msg.channel.send("<@" + tiptarget + "> has been tipped " + formatDisplayBalance(amount) + " " + coin_name + " by " + msg.author);
+				msg.channel.send("<@" + tiptarget + "> has been tipped " + formatDisplayBalance(amount) + " " + coin_name + " :moneybag: by " + msg.author);
 				} else {msg.channel.send(message);}
 				
 			});
 			} else {
-				msg.reply("I could't find \"" + user + "\" . Check if the name is correct");
+				msg.reply("User \"" + user + "\" not found :( . Check if the name is correct");
 			}
 			break;
 			case 'withdraw':
@@ -259,9 +259,9 @@ function checkCommand(msg){
 	  if(collected.first().content == "yes"){
 		  withDraw(msg.author.id, arguments[2], arguments[3], function(success, txhash){
 				if(success == true){
-				msg.author.send("Your withdrawal request was successfuly done. TxHash is " + txhash);
+				msg.author.send("Your withdrawal request was successfuly executed and your funds are on the way :money_with_wings: . TxHash is " + txhash);
 				} else {
-					msg.author.send("Error happened, error code is: " + txhash);
+					msg.author.send("An error has occured :scream: , error code is: " + txhash);
 					
 				}
 				
@@ -269,11 +269,11 @@ function checkCommand(msg){
 			});
 		  
 	  } else if(collected.first().content == "no"){
-      msg.author.send("Your withdrawal request is canceled by your action");
+      msg.author.send("Your withdrawal request has been canceled at your request :confused: ");
 	  }
     })
     .catch(() => {
-      msg.channel.send('The withdraw request was cancelled because you did not confirm your intention!');
+      msg.channel.send('The withdrawal request was cancelled because you did not confirm :thinking: ');
     });
 });
 break;
@@ -309,7 +309,7 @@ break;
 						if(success == true){
 						msg.author.send("User " + data.userid + " info: \n Balance: " + data.balance + " " + coin_name + " \n Last blockchain deposit check height: " + data.lastdepositbh + " \n PaymentID: " + data.paymentid + " \n Can receive tips: " + (data.canreceivetip == 0 ? "false" : "true") + ". \n Can make tip: " + (data.cantip == 0 ? "false" : "true"));
 						}else {
-						msg.author.send("Error occured. Maybe can't find a user with that id");
+						msg.author.send("Error occured. Check User ID");
 						}
 					});
 				}
@@ -693,7 +693,7 @@ function TipSomebody(msg,authorId, tipTarget, tiptargetname, tipperauthorname, t
 					
 					
 				} else {
-					msg.reply("You don't have enough balance to do that!");
+					msg.reply("You don't have enough balance for that :( ");
 					callback(false);
 					
 				}
