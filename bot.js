@@ -33,6 +33,7 @@ var server_wallet_address = config.server_wallet_address;
 var withdraw_tx_fees = config.withdraw_tx_fees;
 var withdraw_min_amount = config.withdraw_min_amount;
 var wait_time_for_withdraw_confirm = config.wait_time_for_withdraw_confirm; // default 20 seconds
+var custom_message_limit = config.custom_message_length_limit; // 100 characters
 var log1 = config.log_1; // log initial output
 var log2 = config.log_2; // log transaction processing and output, logging
 var log3 = config.log_3; // log - debug
@@ -140,6 +141,18 @@ var d = new Date(); // current date and time
 
 
 }
+function getCustomMessageFromTipCommand(arguments){
+	if(arguments.length > 4){
+		var custom_message = "";
+		for(var i = 4; i < arguments.length; i++){
+			custom_message += " " + arguments[i]; // concatenate message from arguments
+		}
+		
+		return custom_message.substring(0, custom_message_limit + 1);
+		
+	} else {return "";}
+	
+}
 function logLocalTransaction(from,to,fromname,toname,amount){
 
   var dbo = db.db("deroTipBot");
@@ -218,6 +231,10 @@ function checkCommand(msg){
 			case 'tip':
 			var user = arguments[2];
 			var amount = arguments[3];
+			var custom_message = "";
+			
+			
+			
 			//checkCorrectArguments
 			try{
 				Big(amount);
@@ -225,9 +242,12 @@ function checkCommand(msg){
 			//
 			if(user == null){msg.reply("Oops! Invalid syntax"); return;}
 			if(amount == null){msg.reply("Oops! Invalid syntax");return;}
-			
+						
 			
 			try{user = msg.mentions.users.first().username;}catch(error){msg.reply("Oops! Invalid syntax");return;} /// check to avoid bot crash
+			
+			try{custom_message = getCustomMessageFromTipCommand(arguments);}catch(err){msg.reply("Oops! Something happened");return;}
+
 			
 			var tiptarget = msg.mentions.users.first().id;
 			
@@ -235,7 +255,7 @@ function checkCommand(msg){
 			if(tiptarget != null){
 			TipSomebody(msg,msg.author.id, tiptarget, user, myname, amount, function(success, message){
 				if(success == true){
-				msg.channel.send("<@" + tiptarget + "> has been tipped " + formatDisplayBalance(amount) + " " + coin_name + " :moneybag: by " + msg.author);
+				msg.channel.send("<@" + tiptarget + "> has been tipped " + formatDisplayBalance(amount) + " " + coin_name + " :moneybag: by " + msg.author + custom_message);
 				} else {msg.channel.send(message);}
 				
 			});
@@ -716,8 +736,8 @@ function getReadableFloatBalanceFromWalletFormat(paymentamount){
 paymentamount = paymentamount.toString(); // crucial, if we're using paymentamount.length, if number passed, it would be undefined, which would result in wrong computation
 	var array = paymentamount.toString().split("");
 	
-	if(array.length < 12){
-			for(var i = 0; i <= 12-paymentamount.length; i++){ // how much zeroes to add, if balance in wallet format (eg. 800000) deposited < 12 characters
+	if(array.length < coin_total_units){
+			for(var i = 0; i <= coin_total_units-paymentamount.length; i++){ // how much zeroes to add, if balance in wallet format (eg. 800000) deposited < 12 characters
 					array.splice(0,0,"0");
 			}
 		
