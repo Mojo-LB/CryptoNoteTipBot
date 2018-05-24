@@ -215,7 +215,7 @@ function checkCommand(msg){
 			});
 			break;
 			case 'help':
-			msg.author.send("Hello! Welcome to Dero TipBot help section. \n To get your balance, type \"!tipdero mybalance\" \n For deposits, type \"!tipdero deposit\" \n For withdrawals, type \"!tipdero withdraw <walletaddress> <amount>\" (withdrawal fee is " + withdraw_tx_fees +  " " + coin_name + ".), minimum withdrawal amount is " + withdraw_min_amount + " " + coin_name + ". \n To tip someone, type \"!tipdero tip <user_mention> <amount>\" \n We are not responsible for any system abuse, please don't deposit/leave big amounts ");
+			msg.author.send("Hello! Welcome to Dero TipBot help section. \n To get your balance, type \"!tipdero mybalance\" \n For deposits, type \"!tipdero deposit\" \n For withdrawals, type \"!tipdero withdraw <walletaddress> <amount>\" (withdrawal fee is " + withdraw_tx_fees +  " " + coin_name + ".), minimum withdrawal amount is " + withdraw_min_amount + " " + coin_name + ". \n To tip someone, type \"!tipdero tip <user_mention> <amount> <Optional: small message>\" \n We are not responsible for any system abuse, please don't deposit/leave big amounts ");
 			break;
 			case 'mybalance':
 				getBalance(msg.author.id, msg, function(data){
