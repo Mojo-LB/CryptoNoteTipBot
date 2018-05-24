@@ -14,6 +14,7 @@ server_wallet_address : "",
 withdraw_tx_fees : "0.016",
 withdraw_min_amount: "0.1",
 wait_time_for_withdraw_confirm : 30000,
+custom_message_length_limit: 100,
 log_1 : true,
 log_2 : true,
 log_3 : true
