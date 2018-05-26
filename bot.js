@@ -660,7 +660,7 @@ function TipSomebody(msg,authorId, tipTarget, tiptargetname, tipperauthorname, t
 		checkTargetExistsIfNotCreate(authorId, function(){ /// check if tipper author exists, if not , create it with balance 0
 	
 	var transactionamount = new Big(Big(transaction_amount).toFixed(coin_total_units));
-			if(transactionamount < 0){callback(false, "Sorry but you can't tip negative balance");return;}
+			if(transactionamount <= 0){callback(false, "Sorry but you can't tip negative balance");return;}
 	getBalance(msg.author.id, msg, function(data){
 		getUserObject(tipTarget, function(data2){
 			if(data.cantip == 0){callback(false, "You aren't allowed to make a tip"); return;} // Check if the tipper is allowed to tip
